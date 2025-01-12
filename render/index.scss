@@ -1,0 +1,503 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Inconsolata';
+}
+
+body {
+	overflow: hidden;
+}
+
+.wrapper {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	&__overflow {
+		bottom: 0;
+		width: 100%;
+		max-height: 40%;
+		grid-template-columns: 1.5fr 2fr;
+		&-open {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+		&-hide {
+			right: 25px;
+			top: -25px;
+		}
+	}
+	&__canvas {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+
+	}
+}
+
+#main {
+	display: block;
+}
+
+.canvas {
+	&__buttons {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 50px;
+		display: grid;
+		grid-template-rows: repeat(3, 50px);
+		grid-gap: 10px;
+	}
+}
+
+.transparent-btn {
+	background: #BAE3F4AA;
+	color: #2D7392;
+	border-color: #2082AD;
+	border: 1px solid;
+}
+
+.overflow {
+	background: #7FB8FC;
+	border-top: 1px solid #3D76BB;
+	display: grid;
+	position: absolute;
+	z-index: 0;
+	&_hidden {
+		display: none;
+	}
+	&-open, &-hide {
+		width: 50px;
+		height: 50px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		cursor: pointer;
+		position: absolute;
+
+	}
+	&-open {
+		border-radius: 10px;
+		&_hidden {
+			display: none;
+		}
+	}
+	&-hide {
+		height: 25px;
+		border-radius: 10px 10px 0 0;
+		border-bottom: 0;
+	}
+}
+
+.vs {
+	// temporary
+	width: 275px;
+	height: 300px;
+	// temporary
+	position: static;
+	grid-template-rows: 25px 1fr;
+	&__UI {
+		display: grid;
+		padding: 5px;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(5, 1fr);
+		grid-gap: 10px;
+		grid-template-areas: "section section" "section1 section1" "section2 section2" "formule formule" "buttons buttons";
+	}
+	&__overflow-hide {
+		border-radius: 50%;
+		width: 1.5em;
+		height: 1.5em;
+		top: 50%;
+		right: 5px;
+		transform: translateY(-50%);
+		&:focus {
+			outline: none;
+		}
+	}
+	&_disconnected {
+		position: absolute;
+		z-index: 1000;
+		border: 1px solid #4160BB;
+		border-radius: 10px;
+		.console {
+			border-radius: 10px 10px 0 0;
+		}
+	}
+}
+
+.console {
+	height: 25px;
+	border-bottom: 1px solid #0B31A2;
+	background: #4160BB;
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	&__info {
+		color: white;
+		font-family: 'Roboto';
+	}
+}
+
+.btn {
+	background: #5881FC;
+	color: white;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 1.5em;
+	width: 100%;
+	height: 100%;
+	transition: .1s;
+	border: none;
+	&:hover {
+		cursor: pointer;
+		background: #2157F9;
+	}
+	&:active {
+		background: #0B31A2
+	}
+	&:focus {
+		outline: none;
+	}
+	&_hidden {
+		display: none;
+	}
+}
+
+.setting {
+	width: 50%;
+	display: flex;
+	padding: 5px;
+	&-section {
+		&:nth-child(1) { grid-area: section; }
+		&:nth-child(2) { grid-area: section1; }
+		&:nth-child(3) { grid-area: section2; }
+		&:nth-child(4) {
+			grid-area: formule;
+			.setting {
+				width: 100%;
+			}
+		}
+		&:nth-child(5) {
+			grid-area: buttons;
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			grid-gap: 0 5px;
+		}
+		display: flex;
+
+		&_choosed {
+			border: 1px dashed #0B31A2;
+			border-left: 0;
+			border-right: 0;
+			// background: none;
+			background: #84A2FC;
+		}
+	}
+	.info {
+		margin-right: 5px;
+		color: white;
+		font-size: 1.2em;
+		padding-top: 2px;
+	}
+	.value {
+		width: 100%;
+		border-bottom: 1px solid #197FF9;
+		display: flex;
+		align-items: center;
+		.fi {
+			font-size: 20px;
+		}
+	}
+	&-last {
+		padding: 0;
+		width: auto;
+	}
+
+	&__label {
+		border-radius: 100%;
+	}
+	&__checkbox {
+		display: none;
+		&:checked + .setting__label {
+			background: #2157F9;
+		}
+	}
+}
+
+.VList {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+
+.inner-VList {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-auto-rows: 1fr;
+	grid-gap: 1px 1px;
+}
+
+.vector {
+	border: none;
+	font-size: 2.5em;
+	&:hover {
+		border: none;
+	}
+	&:active {
+		border: none;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+
+.noScroll-y {
+	overflow-y: scroll;
+	-ms-overflow-y-style: none;
+	&::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+	}
+}
+
+.VCalc {
+	display: grid;
+	grid-template-rows: 1fr 2fr;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: "buttons input" "buttons error";
+	grid-gap: 5px;
+	&__input {
+		border: 2px solid #D18000;
+		margin: 5px 5px 0 0;
+		border-radius: 5px;
+		padding: 5px;
+		display: flex;
+		align-items: center;
+	}
+}
+
+.buttons {
+	grid-area: buttons;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	grid-gap: 1px 1px;
+	grid-template-areas: "complexDiv root pow sqr pi"
+						 "opBracket clBracket sin cos tan "
+						 "seven eight nine plus mul"
+						 "four five six minus div"
+						 "one two three delete allClear"
+						 "zero dot scalar result result";
+}
+
+.error-field {
+	padding-right: 5px;
+}
+
+.inner-error-field {
+	display: grid;
+	grid-auto-rows: 50px;
+	.error__info {
+		display: none;
+	}
+	&_empty {
+		border: 2px dashed #D18000;
+		min-height: 100%;
+		text-align: center;
+		border-radius: 5px;
+		.error__info {
+			display: initial !important;
+		}
+	}
+}
+
+.error {
+	height: 100%;
+	background: #FFB644;
+	color: #A66602;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	margin-bottom: 5px;
+	&__info {
+		font-family: 'Roboto';
+		font-style: .5em;
+		color: #D18000;
+		margin-top: 5px;
+		display: none;
+	}
+	&__look-place {
+		width: 3em;
+		background: #D18000;
+		&:hover {
+			background: #C57800;
+		}
+		&:active {
+			background: #B46E00;
+		}
+	}
+	&__text {
+		width: calc(80% - 3em);
+		overflow-x: scroll;
+		-ms-overflow-x-style: none;
+		&::-webkit-scrollbar {
+			width: 0 !important;
+			height: 0 !important;
+		}
+		&-span {
+			font-family: 'Roboto';
+			
+		}
+	}
+}
+
+#vs-template, #vector-template, #error-template {
+	display: none;
+}
+
+
+// Math Input part
+
+$fiColor: white;
+
+@mixin flex ($jc, $ai) {
+	display: flex;
+	justify-content: $jc;
+	align-items: $ai;
+}
+
+.fi {
+	width: 100%;
+	min-height: 1em;
+	max-height: 3em;
+	font-size: 26px;
+	color: $fiColor;
+	cursor: text;
+	position: relative;
+
+	overflow: scroll;
+	overflow: -moz-scrollbars-none;
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar { width: 0; height: 0; }
+
+	&__block {
+		@include flex(flex-start, center);
+		&_empty {
+			width: .56em;
+			height: 1em;
+			border: 1px solid white;
+			cursor: text;
+		}
+	}
+	&__cursor {
+		border: 1.5px solid $fiColor;
+		margin: 0 1px;
+		padding: 2px 0;
+		align-self: stretch;
+		&_blink {
+			border: none;
+			width: 3px;
+			display: inline-block;
+		}
+	}
+	&__pi {
+		// height: ;
+	}
+	&__sup {
+		margin-top: -5px;
+	}
+	&__sub {
+		margin-bottom: -5px;
+	}
+	&__sup, &__sub {
+		// display: inline-block;
+		font-size: .8em;
+	}
+
+	&__vect {
+		position: relative;
+		height: 1.3em;
+		&-svg {
+			position: absolute;
+			top: -2px;
+			left: 0;
+			width: 20px;
+			height: 10px;
+		}
+		&-angle {
+			&-svg {
+				height: .8em;
+				width: .45em;
+				align-self: flex-end;
+			}
+		}
+	}
+
+	&__brackets-svg {
+		width: .56em;
+		align-self: stretch;
+		/* position: relative;
+		top: 0;
+		bottom: 0; */
+	}
+
+	&__root {
+		position: relative;
+		margin-right: .15em;
+		&-content {
+			/* position: absolute;
+			top: 5px;
+			left: 21px; */
+			 margin-left: 21px;
+			margin-top: 5px; 
+			z-index: 2;
+		}
+		&-polyline-svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 21px;
+			z-index: -1;
+		}
+		&-line-svg {
+			position: absolute;
+			width: calc(100% - 21px);
+			height: 2px;
+			left: 21px;
+			top: 0;
+		}
+	}
+
+	&__div {
+		@include flex(space-around, center);
+		flex-direction: column;
+		margin: 0px 2px;
+		&-block {
+			margin: 2px;
+			padding: 2px 0;
+			justify-content: center;
+		}
+		&-hr {
+			margin: 0;
+			border: none;
+			border-bottom: 1px solid white;
+			align-self: stretch;
+		}
+	}
+}
