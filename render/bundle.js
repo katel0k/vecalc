@@ -624,6 +624,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	errorField.render();
 });
 
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
@@ -693,6 +694,7 @@ function calcBracket (arr) {
 		arr.filter(a => a instanceof Action && !a.unary).length + 1)
 		throw new VectorMathError('Неверное кол-во действий');
 
+	let findMxByPriority = a => a.indexOf(a.reduce((a, b) => b instanceof Action && b.priority > a.priority ? b : a, {priority: 0}));
 	while (arr.length > 1) {
 		let index = findMxByPriority(arr);
 		if (!arr[index].unary)
@@ -1204,6 +1206,7 @@ module.exports.makeErrProxy = function (callback) {
 
 let obj = { plus, minus, mul, div, sin, cos, tan };
 for (let key in obj) module.exports[key] = obj[key];
+
 
 /***/ }),
 /* 2 */
@@ -1745,6 +1748,7 @@ document.addEventListener('click', function (e) {
 	}
 	else inserted = false;
 });
+
 
 /***/ }),
 /* 3 */

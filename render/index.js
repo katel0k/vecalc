@@ -1,6 +1,6 @@
-const VM = require('VectorMath'),
-	mathInput = require('mathInput'),
-	emmet = require('emmet');
+const VM = require('./VectorMath'),
+	mathInput = require('./mathInput'),
+	emmet = require('./emmet');
 
 function carry (func) {
 	return function curried(...args) {

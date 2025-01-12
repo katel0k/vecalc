@@ -1,6 +1,6 @@
-const VM = require('VectorMath'),
-	emmet = require('emmet'),
-	SVGE = require('svg');
+const VM = require('./VectorMath'),
+	emmet = require('./emmet'),
+	SVGE = require('./svg');
 
 function convertHTE (DOM) {
 	class Arr extends Array {
