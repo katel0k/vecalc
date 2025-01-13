@@ -2,6 +2,8 @@ const VM = require('./VectorMath'),
 	mathInput = require('./mathInput'),
 	emmet = require('./emmet');
 
+import "./index.scss"
+
 function carry (func) {
 	return function curried(...args) {
 		if (args.length >= func.length)
